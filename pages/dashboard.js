@@ -1,10 +1,12 @@
 import { getSession } from 'next-auth/client';
 
-import UserProfile from '../components/profile/user-profile';
-
-function ProfilePage() {
-  return <UserProfile />;
-}
+const Dashboard = () => {
+  return (
+    <div>
+      <h1>Welcome!</h1>
+    </div>
+  );
+};
 
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
@@ -23,4 +25,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default ProfilePage;
+export default Dashboard;
