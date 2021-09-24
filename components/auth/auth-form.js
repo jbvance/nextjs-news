@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
+import NotificationContext from '../../store/notification-context';
 
 import classes from './auth-form.module.css';
 
@@ -9,8 +10,8 @@ async function createUser(email, password) {
     method: 'POST',
     body: JSON.stringify({ email, password }),
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   });
 
   const data = await response.json();
@@ -23,6 +24,7 @@ async function createUser(email, password) {
 }
 
 function AuthForm() {
+  const notificationCtx = useContext(NotificationContext);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -45,16 +47,25 @@ function AuthForm() {
       const result = await signIn('credentials', {
         redirect: false,
         email: enteredEmail,
-        password: enteredPassword,
+        password: enteredPassword
       });
 
       if (!result.error) {
         // set some auth state
         router.replace('/profile');
+      } else {
+        notificationCtx.showNotification({
+          title: 'Error logging in',
+          message: 'Unable to log in',
+          status: 'error'
+        });
       }
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
+        if (!result.ok) {
+          //notificationCtx.showNotification();
+        }
         console.log(result);
       } catch (error) {
         console.log(error);
@@ -67,14 +78,14 @@ function AuthForm() {
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required ref={emailInputRef} />
+          <label htmlFor="email">Your Email</label>
+          <input type="email" id="email" required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor='password'>Your Password</label>
+          <label htmlFor="password">Your Password</label>
           <input
-            type='password'
-            id='password'
+            type="password"
+            id="password"
             required
             ref={passwordInputRef}
           />
@@ -82,7 +93,7 @@ function AuthForm() {
         <div className={classes.actions}>
           <button>{isLogin ? 'Login' : 'Create Account'}</button>
           <button
-            type='button'
+            type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
