@@ -1,0 +1,39 @@
+.tile {
+  box-shadow: 0px 0px 5px 1px #a9b6ff;
+  background-color: white;
+  padding: 10px;
+}
+
+.selectableTile {
+  box-shadow: 0px 0px 5px 1px #a9b6ff;
+  background-color: white;
+  padding: 10px;
+}
+
+.selectableTile:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 4px 2px #5fff17;
+}
+
+.deletableTile {
+  box-shadow: 0px 0px 5px 1px #a9b6ff;
+  background-color: white;
+  padding: 10px;
+}
+
+.deletableTile:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 2px 2px #e41111;
+}
+
+.disabledTile {
+  box-shadow: 0px 0px 5px 1px #a9b6ff;
+  background-color: white;
+  padding: 10px;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.selectedTile {
+  box-shadow: 0px 0px 4px 2px #5fff17;
+}
