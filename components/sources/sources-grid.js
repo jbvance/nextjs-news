@@ -4,9 +4,8 @@ import classes from './sources-grid.module.css';
 function SourcesGrid({ sourceList }) {
   return (
     <div className={classes.sourcesGrid}>
-      <h2>Sources go here</h2>
       {sourceList.map((source) => {
-        console.log(source);
+        return <SelectableTile key={source.id}>{source.name}</SelectableTile>;
       })}
     </div>
   );
