@@ -1,0 +1,45 @@
+.headline {
+  display: flex;
+  border: 1px solid #000;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.headline_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headline_text_item {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.headline_title {
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  min-width: 150px;
+}
+
+.responsive_image {
+  width: 125px;
+  height: auto;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.link {
+  color: black;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

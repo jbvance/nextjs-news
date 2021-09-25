@@ -1,29 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/client';
 import SourcesGrid from '../components/sources/sources-grid';
 import { SelectableTile } from '../components/ui/tile';
-import dummySources from '../lib/dummy-sources';
+import classes from './dashboard.module.css';
 
 const Dashboard = () => {
+  const [sources, setSources] = useState();
+
   useEffect(() => {
-    // For now, use dummy-sources file to prevent NewsAPI requests from reaching daily limit.
-    // Remove for production and call API instead
-    //getSources();
+    getSources();
   }, []);
 
   async function getSources() {
     const response = await fetch('/api/news/sources');
-    const data = await response.json();
-    console.log('DATA', data);
+    const results = await response.json();
+    console.log(results);
+    setSources(results.data);
+  }
+
+  if (!sources) {
+    return <div>...Loading</div>;
   }
 
   return (
-    <div>
+    <div className={classes.dashboard}>
       <h1>Welcome!</h1>
-      <SelectableTile>
-        <div>This is a tile</div>
-      </SelectableTile>
-      <SourcesGrid sourceList={dummySources.data} />
+      <h2>Available Sources</h2>
+      <SourcesGrid sourceList={sources} />
     </div>
   );
 };

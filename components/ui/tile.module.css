@@ -5,6 +5,10 @@
 }
 
 .selectableTile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0px 0px 5px 1px #a9b6ff;
   background-color: white;
   padding: 10px;
@@ -16,6 +20,10 @@
 }
 
 .deletableTile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0px 0px 5px 1px #a9b6ff;
   background-color: white;
   padding: 10px;
@@ -27,6 +35,10 @@
 }
 
 .disabledTile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0px 0px 5px 1px #a9b6ff;
   background-color: white;
   padding: 10px;
