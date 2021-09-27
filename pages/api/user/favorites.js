@@ -34,7 +34,6 @@ async function handler(req, res) {
   //console.log('ARR', arr);
   arr.forEach(
     function (doc) {
-      console.log('DOC', doc);
       favorites.push(doc);
     },
     function (err) {

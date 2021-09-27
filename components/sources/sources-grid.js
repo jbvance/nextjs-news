@@ -9,7 +9,11 @@ function SourcesGrid({ sourceList, deletable = false, disabled = false }) {
           return <DeletableTile key={source.id}>{source.name}</DeletableTile>;
         }
         if (disabled) {
-          return <DisabledTile key={source.id}>{source.name}</DisabledTile>;
+          return (
+            <DisabledTile key={source.id} sourceId={source.id}>
+              {source.name}
+            </DisabledTile>
+          );
         }
         return <SelectableTile key={source.id}>{source.name}</SelectableTile>;
       })}

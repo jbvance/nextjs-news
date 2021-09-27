@@ -10,12 +10,17 @@ export const SelectableTile = (props) => {
   return <div className={classes.selectableTile}>{props.children}</div>;
 };
 
+export const AddableTile = (props) => {
+  const favoritesCtx = useContext(FavoritesContext);
+  return <div className={classes.selectableTile}>{props.children}</div>;
+};
+
 export const DeletableTile = (props) => {
   const favoritesCtx = useContext(FavoritesContext);
   return (
     <div
       className={classes.deletableTile}
-      onClick={favoritesCtx.deleteFavorite}
+      onClick={() => favoritesCtx.deleteFavorite(props.sourceId)}
     >
       {props.children}
     </div>
