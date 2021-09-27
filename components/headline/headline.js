@@ -11,7 +11,9 @@ function Headline({ headline }) {
         />
       </div>
       <div className={classes.headline_text}>
-        <div className={classes.headline_title}>{headline.title}</div>
+        <div className={classes.headline_title}>
+          <a href={headline.url}>{headline.title}</a>
+        </div>
         <div className={classes.headline_text_item}>{headline.description}</div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { getSession } from 'next-auth/client';
+import articles from '../../../../lib/dummy-headlines';
 
 async function handler(req, res) {
   const session = await getSession({ req: req });
@@ -8,9 +9,33 @@ async function handler(req, res) {
     return;
   }
 
+  // For now, return dummy aritcles to prevent reaching cap on NewsAPI usage
+  return res.status(200).json({
+    data: {
+      status: 'ok',
+      totalResults: 10,
+      articles
+    }
+  });
+
   const { sourceId } = req.query;
   console.log('QUERY', req.query);
-  return res.status(200).json({ message: 'Got headlines' });
+  try {
+    const response = await fetch(
+      `https://newsapi.org/v2/top-headlines?sources=${sourceId}`,
+      {
+        headers: {
+          'X-API-KEY': process.env.NEWS_API_KEY
+        }
+      }
+    );
+    const data = await response.json();
+    console.log('DATA', data);
+    return res.status(200).json({ data });
+  } catch (error) {
+    console.log('ERROR', error);
+    return res.status(500).json({ error: error.message });
+  }
 }
 
 export default handler;
