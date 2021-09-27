@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import classes from './tile.module.css';
+import FavoritesContext from '../../store/favorites-context';
 
 export const Tile = (props) => {
   return <div className={classes.tile}>{props.children}</div>;
@@ -9,7 +11,15 @@ export const SelectableTile = (props) => {
 };
 
 export const DeletableTile = (props) => {
-  return <div className={classes.deletableTile}>{props.children}</div>;
+  const favoritesCtx = useContext(FavoritesContext);
+  return (
+    <div
+      className={classes.deletableTile}
+      onClick={favoritesCtx.deleteFavorite}
+    >
+      {props.children}
+    </div>
+  );
 };
 
 export const DisabledTile = (props) => {

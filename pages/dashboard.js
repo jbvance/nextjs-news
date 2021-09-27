@@ -7,7 +7,6 @@ import SourcesContext from '../store/sources-context';
 import NotificationContext from '../store/notification-context';
 
 const Dashboard = () => {
-  const [sources, setSources] = useState();
   const sourcesCtx = useContext(SourcesContext);
   const notificationCtx = useContext(NotificationContext);
 

@@ -1,10 +1,16 @@
-import { SelectableTile, DisabledTile } from '../ui/tile';
+import { SelectableTile, DisabledTile, DeletableTile } from '../ui/tile';
 import classes from './sources-grid.module.css';
 
-function SourcesGrid({ sourceList }) {
+function SourcesGrid({ sourceList, deletable = false, disabled = false }) {
   return (
     <div className={classes.sourcesGrid}>
       {sourceList.map((source) => {
+        if (deletable) {
+          return <DeletableTile key={source.id}>{source.name}</DeletableTile>;
+        }
+        if (disabled) {
+          return <DisabledTile key={source.id}>{source.name}</DisabledTile>;
+        }
         return <SelectableTile key={source.id}>{source.name}</SelectableTile>;
       })}
     </div>
