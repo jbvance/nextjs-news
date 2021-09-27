@@ -9,7 +9,7 @@ async function handler(req, res) {
   const data = req.body;
 
   const { email, password } = data;
-  console.log('DATA', data);
+  //console.log('DATA', data);
 
   if (
     !email ||

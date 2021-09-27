@@ -19,7 +19,6 @@ async function handler(req, res) {
   });
 
   const { sourceId } = req.query;
-  console.log('QUERY', req.query);
   try {
     const response = await fetch(
       `https://newsapi.org/v2/top-headlines?sources=${sourceId}`,
@@ -30,7 +29,7 @@ async function handler(req, res) {
       }
     );
     const data = await response.json();
-    console.log('DATA', data);
+    //('DATA', data);
     return res.status(200).json({ data });
   } catch (error) {
     console.log('ERROR', error);

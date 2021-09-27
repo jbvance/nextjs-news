@@ -1,7 +1,7 @@
 import StartingPageContent from '../components/starting-page/starting-page';
 import Dashboard from './dashboard';
 
-function HomePage() {
+function HomePage(props) {
   return <Dashboard />;
 }
 
