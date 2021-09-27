@@ -15,36 +15,11 @@ const Dashboard = () => {
     // If news sources have not yet been set in sources context,
     // load them here from api. Otherwise, use sources stored in context
     if (!sourcesCtx.sources || sourcesCtx.sources.length === 0) {
-      getSources();
-    } else {
-      setSources(sourcesCtx.sources);
+      sourcesCtx.loadSources();
     }
   }, []);
 
-  async function getSources() {
-    try {
-      const response = await fetch('/api/news/sources');
-      const results = await response.json();
-      console.log('RESULTS', results);
-      if (!results.data || results.data.length === 0) {
-        notificationCtx.showNotification({
-          title: 'Error Getting News Sources',
-          message: 'Unable to retrieve news sources. Please try again later.',
-          status: 'error'
-        });
-      }
-      setSources(results.data);
-    } catch (error) {
-      console.error(error);
-      notificationCtx.showNotification({
-        title: 'Error Getting News Sources',
-        message: 'Unable to retrieve news sources. Please try again later.',
-        status: 'error'
-      });
-    }
-  }
-
-  if (!sources) {
+  if (!sourcesCtx.sources || sourcesCtx.sources.length === 0) {
     return <div>...Loading</div>;
   }
 
@@ -52,7 +27,7 @@ const Dashboard = () => {
     <div className={classes.dashboard}>
       <h1>Welcome!</h1>
       <h2>Available Sources</h2>
-      <SourcesGrid sourceList={sources} />
+      <SourcesGrid sourceList={sourcesCtx.sources} />
     </div>
   );
 };
