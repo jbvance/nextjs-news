@@ -2,10 +2,10 @@ import { useEffect, useState, useContext } from 'react';
 import { getSession } from 'next-auth/client';
 import SourcesGrid from '../sources/sources-grid';
 import classes from './favorites.module.css';
-import SourcesContext from '../../store/sources-context';
 import NotificationContext from '../../store/notification-context';
 
 const Favorites = ({ favorites }) => {
+  useEffect(() => {}, []);
   if (!favorites || favorites.length === 0) {
     return <div>No favorites found</div>;
   }
@@ -25,13 +25,13 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         destination: '/auth',
-        permanent: false
-      }
+        permanent: false,
+      },
     };
   }
 
   return {
-    props: { session }
+    props: { session },
   };
 }
 

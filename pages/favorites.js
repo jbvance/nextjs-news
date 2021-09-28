@@ -11,12 +11,13 @@ const FavoritesPage = () => {
   if (favoritesCtx.isLoading) {
     return <p>Loading...</p>;
   }
-  if (!favoritesCtx.favorites || favoritesCtx.favorites.length === 0) {
-    return <p>No favorites found</p>;
-  }
 
   function getNonFavorites() {
     const nonFavs = [];
+    //console.log('SOURCES', sourcesCtx.sources);
+    if (!favoritesCtx.favorites || favoritesCtx.favorites.length === 0) {
+      return sourcesCtx.sources;
+    }
     for (const source of sourcesCtx.sources) {
       //console.log(source);
       for (const favorite of favoritesCtx.favorites) {
@@ -30,12 +31,17 @@ const FavoritesPage = () => {
         }
       }
     }
+    //console.log('NON-FAVS', nonFavs);
     return nonFavs;
   }
 
   return (
     <div>
-      <Favorites favorites={favoritesCtx.favorites} />
+      {favoritesCtx.favorites && favoritesCtx.favorites.length > 0 ? (
+        <Favorites favorites={favoritesCtx.favorites} />
+      ) : (
+        <p>No favorites found</p>
+      )}
       <h2>Click a source below to add it to your favorites</h2>
       <SourcesGrid sourceList={getNonFavorites()} />
     </div>

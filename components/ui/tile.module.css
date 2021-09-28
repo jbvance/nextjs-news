@@ -32,6 +32,19 @@
 .deletableTile:hover {
   cursor: pointer;
   box-shadow: 0px 0px 2px 2px #e41111;
+  opacity: 0.4;
+}
+
+.deletableTile:hover span {
+  display: none;
+}
+
+.deletableTile:hover:before {
+  content: 'X';
+  position: relative;
+  top: -50%;
+  color: red;
+  left: -20%;
 }
 
 .disabledTile {

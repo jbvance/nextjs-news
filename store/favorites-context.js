@@ -5,7 +5,7 @@ const FavoritesContext = createContext({
   loadFavorites: function () {},
   isLoading: false,
   addFavorite: function () {},
-  deleteFavorite: function () {}
+  deleteFavorite: function () {},
 });
 
 export function FavoritesContextProvider(props) {
@@ -14,9 +14,10 @@ export function FavoritesContextProvider(props) {
 
   useEffect(() => {
     if (!favorites || favorites.length === 0) {
+      console.log('loading favorites');
       loadFavoritesHandler();
     }
-  }, [favorites]);
+  }, []);
 
   function addFavorite(item) {
     console.log('adding favorite');
@@ -26,7 +27,7 @@ export function FavoritesContextProvider(props) {
   function deleteFavorite(id) {
     console.log('deleting favorite');
     const newFavs = favorites.filter((fav) => {
-      console.log('FAV', fav);
+      //console.log('FAV', fav);
       return fav.id === id;
     });
     console.log(newFavs);
@@ -35,10 +36,9 @@ export function FavoritesContextProvider(props) {
 
   async function loadFavoritesHandler() {
     setIsLoading(true);
-    console.log('IN LOADFAVORITES');
     const response = await fetch('/api/user/favorites');
     const results = await response.json();
-    console.log('FAVORITES', results);
+    //console.log('FAVORITES', results);
     setFavorites(results.data);
     setIsLoading(false);
   }
@@ -48,7 +48,7 @@ export function FavoritesContextProvider(props) {
     loadFavorites: loadFavoritesHandler,
     addFavorite,
     deleteFavorite,
-    isLoading
+    isLoading,
   };
 
   return (
