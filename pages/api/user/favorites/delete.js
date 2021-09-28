@@ -35,7 +35,6 @@ async function handler(req, res) {
     const query = { id, user_id };
     const result = await favoritesCollection.deleteOne(query);
     if (result.deletedCount === 1) {
-      console.log('Successfully deleted one favorite.');
       res
         .status(204)
         .json({ status: 'success', message: 'Deleted One Favorites Record' });

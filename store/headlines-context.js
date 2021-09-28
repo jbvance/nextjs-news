@@ -17,14 +17,15 @@ export function HeadlinesContextProvider(props) {
   }, []);
 
   async function loadHeadlinesHandler(favorites = []) {
-    console.log('Loading headlines');
+    //console.log('Loading headlines');
     try {
       let qry = '';
       if (favorites.length > 0) {
         qry = favorites.join(',');
-        console.log('QRY', qry);
+        //console.log('QRY', qry);
       }
       const apiUrl = `/api/news/headlines${qry ? `?sources=${qry}` : ''}`;
+      //console.log('URL', apiUrl);
       const response = await fetch(apiUrl);
       const results = await response.json();
       setHeadlines(results.data.articles);

@@ -28,21 +28,18 @@ const Dashboard = () => {
   }
 
   async function loadArticlesBySourceId(id) {
-    //console.log('clicked', favoritesCtx.selectedFavorite);
-    console.log('ID', id);
+    //console.log('ID', id);
     favoritesCtx.selectFavorite(id);
     headlinesCtx.loadHeadlines([id]);
   }
 
   return (
-    <HeadlinesContextProvider>
-      <div className={classes.dashboard}>
-        <h1>Welcome!</h1>
-        <FavoritesList onChangeFavorite={loadArticlesBySourceId} />
-        <h2>Latest Headlines</h2>
-        <HeadlinesGrid />
-      </div>
-    </HeadlinesContextProvider>
+    <div className={classes.dashboard}>
+      <h1>Welcome!</h1>
+      <FavoritesList onChangeFavorite={loadArticlesBySourceId} />
+      <h2>Latest Headlines</h2>
+      <HeadlinesGrid />
+    </div>
   );
 };
 

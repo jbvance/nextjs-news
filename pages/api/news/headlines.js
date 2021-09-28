@@ -5,7 +5,6 @@ import articles from '../../../lib/dummy-headlines';
 async function handler(req, res) {
   console.log('CALLING HEADLINES HANDLER');
   const session = await getSession({ req: req });
-  console.log('URL TO CALL', req.url);
 
   // get sources if sent via querystring
   let sources = '';
@@ -13,7 +12,7 @@ async function handler(req, res) {
     sources = req.query.sources;
   }
 
-  console.log('SOURCES', sources);
+  //console.log('SOURCES', sources);
 
   if (!session) {
     res.status(401).json({ message: 'Not authenticated!' });

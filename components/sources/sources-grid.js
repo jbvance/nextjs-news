@@ -8,7 +8,7 @@ function SourcesGrid({ sourceList, deletable = false, disabled = false }) {
         if (deletable) {
           return (
             <DeletableTile key={source.id} id={source.id}>
-              <span></span>
+              <span>&times;</span>
               {source.name}
             </DeletableTile>
           );
@@ -28,28 +28,6 @@ function SourcesGrid({ sourceList, deletable = false, disabled = false }) {
       })}
     </div>
   );
-
-  // return (
-  //   <AppContext.Consumer>
-  //     {({ sourceList, addFavorite, isInFavorites }) => {
-  //       let TileClass = SelectableTile;
-  //       return (
-  //         <SourcesGridStyled>
-  //           {Object.keys(sourceList).map((key) => {
-  //             const TileClass = isInFavorites(key)
-  //               ? DisabledTile
-  //               : SelectableTile;
-  //             return (
-  //               <TileClass key={key} onClick={() => addFavorite(key)}>
-  //                 {sourceList[key].name}{' '}
-  //               </TileClass>
-  //             );
-  //           })}
-  //         </SourcesGridStyled>
-  //       );
-  //     }}
-  //   </AppContext.Consumer>
-  // );
 }
 
 export default SourcesGrid;
