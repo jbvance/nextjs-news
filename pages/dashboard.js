@@ -5,9 +5,9 @@ import classes from './dashboard.module.css';
 import SourcesContext from '../store/sources-context';
 import NotificationContext from '../store/notification-context';
 import FavoritesContext from '../store/favorites-context';
-import { HeadlinesContextProvider } from '../store/headlines-context';
 import FavoritesList from '../components/favorites/favorites-list';
 import HeadlinesContext from '../store/headlines-context';
+import SearchBar from '../components/search-bar/searchbar';
 
 const Dashboard = () => {
   const sourcesCtx = useContext(SourcesContext);
@@ -33,9 +33,14 @@ const Dashboard = () => {
     headlinesCtx.loadHeadlines([id]);
   }
 
+  async function searchHandler(searchTerm) {
+    console.log(searchTerm);
+  }
+
   return (
     <div className={classes.dashboard}>
       <h1>Welcome!</h1>
+      <SearchBar onSearch={searchHandler} />
       <FavoritesList onChangeFavorite={loadArticlesBySourceId} />
       <h2>Latest Headlines</h2>
       <HeadlinesGrid />
