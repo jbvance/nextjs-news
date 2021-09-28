@@ -14,7 +14,6 @@ const FavoritesPage = () => {
 
   function getNonFavorites() {
     const nonFavs = [];
-    console.log('SOURCES', sourcesCtx.sources);
     if (!favoritesCtx.favorites || favoritesCtx.favorites.length === 0) {
       return sourcesCtx.sources;
     }

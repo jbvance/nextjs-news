@@ -1,5 +1,10 @@
 .favorites {
-  padding: 10px;
   margin: 10px;
-  border: 4px solid gray;
+  border: 2px solid #38015c;
+}
+
+.favorites h2,
+.favorites p {
+  margin: 10px;
+  color: #38015c;
 }
