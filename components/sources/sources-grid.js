@@ -6,7 +6,12 @@ function SourcesGrid({ sourceList, deletable = false, disabled = false }) {
     <div className={classes.sourcesGrid}>
       {sourceList.map((source) => {
         if (deletable) {
-          return <DeletableTile key={source.id}>{source.name}</DeletableTile>;
+          return (
+            <DeletableTile key={source.id}>
+              <span></span>
+              {source.name}
+            </DeletableTile>
+          );
         }
         if (disabled) {
           return (
