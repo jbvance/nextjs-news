@@ -3,3 +3,25 @@
   flex-direction: column;
   margin: 40px 20px;
 }
+
+.favorites_grid {
+  display: flex;
+  flex-direction: row;
+}
+
+.favorites_grid div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: blue;
+}
+
+.favorites_grid div:hover {
+  cursor: pointer;
+}

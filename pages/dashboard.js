@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
 import { getSession } from 'next-auth/client';
-import SourcesGrid from '../components/sources/sources-grid';
-import { SelectableTile } from '../components/ui/tile';
+import HeadlinesGrid from '../components/headline/headlines-grid';
 import classes from './dashboard.module.css';
 import SourcesContext from '../store/sources-context';
 import NotificationContext from '../store/notification-context';
+import { HeadlinesContextProvider } from '../store/headlines-context';
 
 const Dashboard = () => {
   const sourcesCtx = useContext(SourcesContext);
@@ -23,11 +23,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={classes.dashboard}>
-      <h1>Welcome!</h1>
-      <h2>Available Sources</h2>
-      <SourcesGrid sourceList={sourcesCtx.sources} />
-    </div>
+    <HeadlinesContextProvider>
+      <div className={classes.dashboard}>
+        <h1>Welcome!</h1>
+        <h2>Latest Headlines</h2>
+        <HeadlinesGrid />
+      </div>
+    </HeadlinesContextProvider>
   );
 };
 
