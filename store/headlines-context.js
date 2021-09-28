@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 
 const HeadlinesContext = createContext({
   headlines: [],
-  loadHeadlines: function () {},
+  loadHeadlines: function (favorites = []) {},
   isLoading: false
 });
 
@@ -16,9 +16,15 @@ export function HeadlinesContextProvider(props) {
     }
   }, []);
 
-  async function loadHeadlinesHandler(onlyFavorites = false) {
+  async function loadHeadlinesHandler(favorites = []) {
+    console.log('Loading headlines');
     try {
-      const apiUrl = onlyFavorites ? '' : '/api/news/headlines';
+      let qry = '';
+      if (favorites.length > 0) {
+        qry = favorites.join(',');
+        console.log('QRY', qry);
+      }
+      const apiUrl = `/api/news/headlines${qry ? `?sources=${qry}` : ''}`;
       const response = await fetch(apiUrl);
       const results = await response.json();
       setHeadlines(results.data.articles);

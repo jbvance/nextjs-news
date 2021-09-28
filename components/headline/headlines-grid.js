@@ -16,25 +16,13 @@ function HeadlinesGrid({ headlines }) {
     return <h2>Unable to load headlines</h2>;
   }
 
-  function getFavorites() {
-    if (favoritesCtx.favorites && favoritesCtx.favorites.length > 1) {
-      return (
-        <div className={classes.favorites_grid}>
-          {favoritesCtx.favorites.map((fav) => {
-            return <div key={fav.id}>{fav.name}</div>;
-          })}
-        </div>
-      );
-    } else if (favoritesCtx.isLoading) {
-      return null;
-    } else {
-      return <div>No Favorites</div>;
-    }
+  async function loadArticlesBySourceId(id) {
+    //favoritesCtx.selectFavorite(id);
+    headlinesCtx.loadHeadlines([id]);
   }
 
   return (
     <div className={classes.headlines_grid}>
-      {getFavorites()}
       {headlinesCtx.headlines.map((headline, index) => {
         return <Headline key={index} headline={headline} />;
       })}

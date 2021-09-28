@@ -3,7 +3,17 @@ import articles from '../../../lib/dummy-headlines';
 
 // Returns top headlines from all sources (not just favorites)
 async function handler(req, res) {
+  console.log('CALLING HEADLINES HANDLER');
   const session = await getSession({ req: req });
+  console.log('URL TO CALL', req.url);
+
+  // get sources if sent via querystring
+  let sources = '';
+  if (req.query && req.query.sources) {
+    sources = req.query.sources;
+  }
+
+  console.log('SOURCES', sources);
 
   if (!session) {
     res.status(401).json({ message: 'Not authenticated!' });
@@ -20,14 +30,17 @@ async function handler(req, res) {
   });
 
   try {
-    const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=us`,
-      {
-        headers: {
-          'X-API-KEY': process.env.NEWS_API_KEY
-        }
+    let url;
+    if (!sources) {
+      url = 'https://newsapi.org/v2/top-headlines?country=us';
+    } else {
+      url = `https://newsapi.org/v2/top-headlines?sources=${sources}`;
+    }
+    const response = await fetch(url, {
+      headers: {
+        'X-API-KEY': process.env.NEWS_API_KEY
       }
-    );
+    });
     const data = await response.json();
     //('DATA', data);
     return res.status(200).json({ data });

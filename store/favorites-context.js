@@ -5,12 +5,15 @@ const FavoritesContext = createContext({
   loadFavorites: function () {},
   isLoading: false,
   addFavorite: function (item) {},
-  deleteFavorite: function (id) {}
+  deleteFavorite: function (id) {},
+  selectFavorite: function (id) {},
+  selectedFavorite: ''
 });
 
 export function FavoritesContextProvider(props) {
   const [favorites, setFavorites] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedFavorite, setSelectedFavorite] = useState(null);
 
   useEffect(() => {
     if (!favorites || favorites.length === 0) {
@@ -55,12 +58,18 @@ export function FavoritesContextProvider(props) {
     setIsLoading(false);
   }
 
+  function selectFavorite(id) {
+    setSelectedFavorite(id);
+  }
+
   const context = {
     favorites,
     loadFavorites: loadFavoritesHandler,
     addFavorite,
     deleteFavorite,
-    isLoading
+    isLoading,
+    selectFavorite,
+    selectedFavorite
   };
 
   return (
