@@ -13,6 +13,7 @@ const Favorites = ({ favorites }) => {
   return (
     <div className={classes.favorites}>
       <h2>Favorites</h2>
+      <p>Click a favorite below to delete it</p>
       <SourcesGrid sourceList={favorites} deletable={true} />
     </div>
   );

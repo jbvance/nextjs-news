@@ -12,7 +12,14 @@ export const SelectableTile = (props) => {
 
 export const AddableTile = (props) => {
   const favoritesCtx = useContext(FavoritesContext);
-  return <div className={classes.selectableTile}>{props.children}</div>;
+  return (
+    <div
+      className={classes.selectableTile}
+      onClick={() => favoritesCtx.addFavorite(props.item)}
+    >
+      {props.children}
+    </div>
+  );
 };
 
 export const DeletableTile = (props) => {
@@ -20,7 +27,7 @@ export const DeletableTile = (props) => {
   return (
     <div
       className={classes.deletableTile}
-      onClick={() => favoritesCtx.deleteFavorite(props.sourceId)}
+      onClick={() => favoritesCtx.deleteFavorite(props.id)}
     >
       {props.children}
     </div>

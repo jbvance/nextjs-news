@@ -4,8 +4,8 @@ const FavoritesContext = createContext({
   favorites: [],
   loadFavorites: function () {},
   isLoading: false,
-  addFavorite: function () {},
-  deleteFavorite: function () {},
+  addFavorite: function (item) {},
+  deleteFavorite: function (id) {},
 });
 
 export function FavoritesContextProvider(props) {
@@ -14,31 +14,44 @@ export function FavoritesContextProvider(props) {
 
   useEffect(() => {
     if (!favorites || favorites.length === 0) {
-      console.log('loading favorites');
       loadFavoritesHandler();
     }
   }, []);
 
-  function addFavorite(item) {
-    console.log('adding favorite');
-    setFavorites((prevFavorites) => [...prevFavorites, item]);
+  async function addFavorite(item) {
+    const { id, category, country, description, language, name, url } = item;
+    try {
+      const result = await fetch('/api/user/favorites/insert', {
+        method: 'POST',
+        body: JSON.stringify({ ...item }),
+      });
+      if (result.ok) {
+        setFavorites((prevFavs) => [...prevFavs, item]);
+      }
+      if (!result.ok) {
+        console.log('UNABLE TO INSERT');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  function deleteFavorite(id) {
-    console.log('deleting favorite');
-    const newFavs = favorites.filter((fav) => {
-      //console.log('FAV', fav);
-      return fav.id === id;
+  async function deleteFavorite(id) {
+    const result = await fetch('/api/user/favorites/delete', {
+      method: 'DELETE',
+      body: JSON.stringify({ id }),
     });
-    console.log(newFavs);
-    setFavorites((prevFavorites) => newFavs);
+    const newFavs = favorites.filter((fav) => {
+      return fav.id !== id;
+    });
+    setFavorites(newFavs);
   }
 
   async function loadFavoritesHandler() {
     setIsLoading(true);
     const response = await fetch('/api/user/favorites');
     const results = await response.json();
-    //console.log('FAVORITES', results);
+    console.log('FAVORITES', results);
     setFavorites(results.data);
     setIsLoading(false);
   }

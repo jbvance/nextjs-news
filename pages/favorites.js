@@ -14,21 +14,21 @@ const FavoritesPage = () => {
 
   function getNonFavorites() {
     const nonFavs = [];
-    //console.log('SOURCES', sourcesCtx.sources);
+    console.log('SOURCES', sourcesCtx.sources);
     if (!favoritesCtx.favorites || favoritesCtx.favorites.length === 0) {
       return sourcesCtx.sources;
     }
     for (const source of sourcesCtx.sources) {
       //console.log(source);
+      let found = false;
       for (const favorite of favoritesCtx.favorites) {
-        let found = false;
         if (source.id === favorite.id) {
           found = true;
           break;
         }
-        if (!found) {
-          nonFavs.push(source);
-        }
+      }
+      if (!found) {
+        nonFavs.push(source);
       }
     }
     //console.log('NON-FAVS', nonFavs);
