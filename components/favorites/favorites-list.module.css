@@ -1,6 +1,12 @@
 .favorites_grid {
   display: flex;
   flex-direction: row;
+  margin: 10px 0px;
+}
+
+.favorites_container {
+  border: 1px solid gray;
+  padding: 10px;
 }
 
 .favorites_grid_item {

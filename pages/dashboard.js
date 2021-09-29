@@ -34,7 +34,14 @@ const Dashboard = () => {
   }
 
   async function searchHandler(searchTerm) {
-    console.log(searchTerm);
+    if (!searchTerm || searchTerm.length === 0) {
+      return;
+    }
+    try {
+      headlinesCtx.loadSearchHeadlines(searchTerm);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -42,7 +49,7 @@ const Dashboard = () => {
       <h1>Welcome!</h1>
       <SearchBar onSearch={searchHandler} />
       <FavoritesList onChangeFavorite={loadArticlesBySourceId} />
-      <h2>Latest Headlines</h2>
+      <h2>Headlines</h2>
       <HeadlinesGrid />
     </div>
   );

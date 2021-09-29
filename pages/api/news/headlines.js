@@ -3,7 +3,6 @@ import articles from '../../../lib/dummy-headlines';
 
 // Returns top headlines from all sources (not just favorites)
 async function handler(req, res) {
-  console.log('CALLING HEADLINES HANDLER');
   const session = await getSession({ req: req });
 
   // get sources if sent via querystring
@@ -45,7 +44,7 @@ async function handler(req, res) {
     return res.status(200).json({ data });
   } catch (error) {
     console.log('ERROR', error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ status: 'error', message: error.message });
   }
 }
 

@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from 'react';
 const HeadlinesContext = createContext({
   headlines: [],
   loadHeadlines: function (favorites = []) {},
+  loadSearchHeadlines: function (searchTerm) {},
   isLoading: false
 });
 
@@ -17,7 +18,8 @@ export function HeadlinesContextProvider(props) {
   }, []);
 
   async function loadHeadlinesHandler(favorites = []) {
-    //console.log('Loading headlines');
+    console.log('Loading headlines');
+    setIsLoading(true);
     try {
       let qry = '';
       if (favorites.length > 0) {
@@ -36,9 +38,26 @@ export function HeadlinesContextProvider(props) {
     }
   }
 
+  async function loadSearchHeadlinesHandler(searchTerm) {
+    console.log('Loading Search headlines');
+    setIsLoading(true);
+    try {
+      const apiUrl = `/api/news/headlines-search?searchTerm=${searchTerm}`;
+      //console.log('URL', apiUrl);
+      const response = await fetch(apiUrl);
+      const results = await response.json();
+      setHeadlines(results.data.articles);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const context = {
     headlines,
     loadHeadlines: loadHeadlinesHandler,
+    loadSearchHeadlines: loadSearchHeadlinesHandler,
     isLoading
   };
 

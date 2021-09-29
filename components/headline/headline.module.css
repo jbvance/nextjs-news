@@ -1,8 +1,8 @@
 .headline {
   display: flex;
-  border: 1px solid #000;
+  border: 1px solid #6e6c6c;
   margin: 10px 0;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .headline a {
@@ -47,6 +47,10 @@
 
 .link:hover {
   text-decoration: underline;
+}
+
+.date {
+  font-size: 0.8em;
 }
 
 @media only screen and (max-width: 475px) {

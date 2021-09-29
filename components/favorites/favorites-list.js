@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, Fragment } from 'react';
 import FavoritesContext from '../../store/favorites-context';
 import classes from './favorites-list.module.css';
 
@@ -9,22 +9,28 @@ const FavoritesList = (props) => {
   function getFavorites() {
     if (favoritesCtx.favorites && favoritesCtx.favorites.length > 1) {
       return (
-        <div className={classes.favorites_grid}>
-          {favoritesCtx.favorites.map((fav) => {
-            return (
-              <div
-                className={
-                  fav.id === favoritesCtx.selectedFavorite
-                    ? classes.favorites_grid_item_selected
-                    : classes.favorites_grid_item
-                }
-                key={fav.id}
-                onClick={() => props.onChangeFavorite(fav.id)}
-              >
-                {fav.name}
-              </div>
-            );
-          })}
+        <div className={classes.favorites_container}>
+          <div>
+            Select a favorite below to show the latest headlines for that news
+            source!
+          </div>
+          <div className={classes.favorites_grid}>
+            {favoritesCtx.favorites.map((fav) => {
+              return (
+                <div
+                  className={
+                    fav.id === favoritesCtx.selectedFavorite
+                      ? classes.favorites_grid_item_selected
+                      : classes.favorites_grid_item
+                  }
+                  key={fav.id}
+                  onClick={() => props.onChangeFavorite(fav.id)}
+                >
+                  {fav.name}
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     } else if (favoritesCtx.isLoading) {
