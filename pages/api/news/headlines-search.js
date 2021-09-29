@@ -3,12 +3,6 @@ import articles from '../../../lib/dummy-headlines';
 
 // Returns headlines from  user search query
 async function handler(req, res) {
-  console.log('PAGE_SIZE', process.env.PAGE_SIZE);
-  console.log(
-    `https://newsapi.org/v2/everything?sortBy=publishedAt&pageSize=${
-      process.env.PAGE_SIZE || 25
-    }`
-  );
   const session = await getSession({ req: req });
 
   // verify  user is logged in

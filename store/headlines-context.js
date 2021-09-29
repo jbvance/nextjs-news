@@ -18,7 +18,7 @@ export function HeadlinesContextProvider(props) {
   }, []);
 
   async function loadHeadlinesHandler(favorites = []) {
-    console.log('Loading headlines');
+    //console.log('Loading headlines');
     setIsLoading(true);
     try {
       let qry = '';

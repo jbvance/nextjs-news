@@ -16,11 +16,6 @@ function HeadlinesGrid({ headlines }) {
     return <h2>Unable to load headlines</h2>;
   }
 
-  async function loadArticlesBySourceId(id) {
-    //favoritesCtx.selectFavorite(id);
-    headlinesCtx.loadHeadlines([id]);
-  }
-
   return (
     <div className={classes.headlines_grid}>
       {headlinesCtx.headlines.map((headline, index) => {

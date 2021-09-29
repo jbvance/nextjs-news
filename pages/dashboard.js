@@ -14,6 +14,7 @@ const Dashboard = () => {
   const notificationCtx = useContext(NotificationContext);
   const favoritesCtx = useContext(FavoritesContext);
   const headlinesCtx = useContext(HeadlinesContext);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // If news sources have not yet been set in sources context,
@@ -28,28 +29,51 @@ const Dashboard = () => {
   }
 
   async function loadArticlesBySourceId(id) {
-    //console.log('ID', id);
+    // if user clicked the favorite that is already selected,
+    // ignore and do NOT call the api
+    if (
+      favoritesCtx.selectedFavorite &&
+      favoritesCtx.selectedFavorite.id === id
+    ) {
+      return;
+    }
+    //reset search term since we are now loading
+    // by source(s) instead
+    setSearchTerm('');
+
+    // set the selected favorite and load headlines
     favoritesCtx.selectFavorite(id);
     headlinesCtx.loadHeadlines([id]);
   }
 
-  async function searchHandler(searchTerm) {
-    if (!searchTerm || searchTerm.length === 0) {
+  async function searchHandler(term) {
+    if (!term || term.length === 0) {
       return;
     }
     try {
-      headlinesCtx.loadSearchHeadlines(searchTerm);
+      // Since we are going to perform a search, any favorite
+      // that is currently selected should be deselected first
+      favoritesCtx.selectFavorite(null);
+      // Set search term to display after 'Headlines' in header
+      setSearchTerm(term);
+      headlinesCtx.loadSearchHeadlines(term);
     } catch (error) {
       console.error(error);
     }
   }
-
   return (
     <div className={classes.dashboard}>
       <h1>Welcome!</h1>
       <SearchBar onSearch={searchHandler} />
       <FavoritesList onChangeFavorite={loadArticlesBySourceId} />
-      <h2>Headlines</h2>
+      <h2>
+        Headlines{' '}
+        {favoritesCtx.selectedFavorite
+          ? ` for ${favoritesCtx.selectedFavorite.name}`
+          : searchTerm
+          ? ` for "${searchTerm}"`
+          : ''}
+      </h2>
       <HeadlinesGrid />
     </div>
   );

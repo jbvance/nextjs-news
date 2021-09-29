@@ -59,7 +59,8 @@ export function FavoritesContextProvider(props) {
   }
 
   function selectFavorite(id) {
-    setSelectedFavorite(id);
+    const favToSelect = favorites.find((fav) => fav.id === id);
+    setSelectedFavorite(favToSelect);
   }
 
   const context = {
