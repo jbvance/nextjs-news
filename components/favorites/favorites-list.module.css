@@ -38,3 +38,11 @@
 .favorites_grid div:hover {
   cursor: pointer;
 }
+
+@media only screen and (max-width: 450px) {
+  .favorites_grid {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+  }
+}

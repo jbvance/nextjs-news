@@ -26,6 +26,11 @@ function MainNavigation() {
           )}
           {session && (
             <li>
+              <Link href="/">Headlines</Link>
+            </li>
+          )}
+          {session && (
+            <li>
               <Link href="/favorites">Favorites</Link>
             </li>
           )}

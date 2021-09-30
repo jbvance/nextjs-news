@@ -1,16 +1,16 @@
 .header {
   width: 100%;
-  height: 5rem;
+  /* height: 5rem; */
   background-color: #38015c;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10%;
+  padding: 2% 10%;
 }
 
 .logo {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Zen Tokyo Zoo', 'Lato', sans-serif;
   font-size: 2rem;
   color: white;
   margin: 0;
@@ -52,4 +52,31 @@
 .header button:hover {
   background-color: #c291e2;
   color: #38015c;
+}
+
+@media only screen and (max-width: 550px) {
+  .header {
+    width: 100%;
+    /*height: 5rem;*/
+    background-color: #38015c;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2% 10%;
+  }
+
+  .header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  .header li {
+    margin: 0.2rem 0rem;
+  }
 }
