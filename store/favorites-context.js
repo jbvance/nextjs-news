@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { compare } from '../lib/utils';
 
 const FavoritesContext = createContext({
   favorites: [],
@@ -7,7 +8,7 @@ const FavoritesContext = createContext({
   addFavorite: function (item) {},
   deleteFavorite: function (id) {},
   selectFavorite: function (id) {},
-  selectedFavorite: ''
+  selectedFavorite: '',
 });
 
 export function FavoritesContextProvider(props) {
@@ -26,7 +27,7 @@ export function FavoritesContextProvider(props) {
     try {
       const result = await fetch('/api/user/favorites/insert', {
         method: 'POST',
-        body: JSON.stringify({ ...item })
+        body: JSON.stringify({ ...item }),
       });
       if (result.ok) {
         setFavorites((prevFavs) => [...prevFavs, item]);
@@ -42,7 +43,7 @@ export function FavoritesContextProvider(props) {
   async function deleteFavorite(id) {
     const result = await fetch('/api/user/favorites/delete', {
       method: 'DELETE',
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id }),
     });
     const newFavs = favorites.filter((fav) => {
       return fav.id !== id;
@@ -54,7 +55,7 @@ export function FavoritesContextProvider(props) {
     setIsLoading(true);
     const response = await fetch('/api/user/favorites');
     const results = await response.json();
-    setFavorites(results.data);
+    setFavorites(results.data.sort(compare));
     setIsLoading(false);
   }
 
@@ -70,7 +71,7 @@ export function FavoritesContextProvider(props) {
     deleteFavorite,
     isLoading,
     selectFavorite,
-    selectedFavorite
+    selectedFavorite,
   };
 
   return (

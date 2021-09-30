@@ -19,25 +19,31 @@ async function handler(req, res) {
   }
 
   // For now, return dummy articles to prevent reaching cap on NewsAPI usage
-  return res.status(200).json({
-    data: {
-      status: 'ok',
-      totalResults: 10,
-      articles
-    }
-  });
+  if (process.env.ENVIRONMENT === 'dev') {
+    return res.status(200).json({
+      data: {
+        status: 'ok',
+        totalResults: 10,
+        articles,
+      },
+    });
+  }
 
   try {
     let url;
     if (!sources) {
-      url = 'https://newsapi.org/v2/top-headlines?country=us';
+      url = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${
+        process.env.PAGE_SIZE || 25
+      }`;
     } else {
-      url = `https://newsapi.org/v2/top-headlines?sources=${sources}`;
+      url = `https://newsapi.org/v2/top-headlines?sources=${sources}&pageSize=${
+        process.env.PAGE_SIZE || 25
+      }`;
     }
     const response = await fetch(url, {
       headers: {
-        'X-API-KEY': process.env.NEWS_API_KEY
-      }
+        'X-API-KEY': process.env.NEWS_API_KEY,
+      },
     });
     const data = await response.json();
     //('DATA', data);

@@ -2,12 +2,14 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import FavoritesContext from '../../store/favorites-context';
 import classes from './favorites-list.module.css';
+import { compare } from '../../lib/utils';
 
 const FavoritesList = (props) => {
   const favoritesCtx = useContext(FavoritesContext);
 
   function getFavorites() {
     if (favoritesCtx.favorites && favoritesCtx.favorites.length > 0) {
+      const sortedFavorites = favoritesCtx.favorites.sort(compare);
       return (
         <div className={classes.favorites_container}>
           <div>
@@ -15,7 +17,7 @@ const FavoritesList = (props) => {
             source!
           </div>
           <div className={classes.favorites_grid}>
-            {favoritesCtx.favorites.map((fav) => {
+            {sortedFavorites.map((fav) => {
               return (
                 <div
                   className={

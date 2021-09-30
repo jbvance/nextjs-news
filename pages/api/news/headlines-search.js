@@ -18,32 +18,34 @@ async function handler(req, res) {
       : '';
 
   //For development, return dummy articles to prevent reaching cap on NewsAPI usage
-  return res.status(200).json({
-    data: {
-      status: 'ok',
-      totalResults: 10,
-      articles
-    }
-  });
+  if (process.env.ENVIRONMENT === 'dev') {
+    return res.status(200).json({
+      data: {
+        status: 'ok',
+        totalResults: 10,
+        articles,
+      },
+    });
+  }
 
-  //   try {
-  //     let url = `https://newsapi.org/v2/everything?sortBy=publishedAt&pageSize=${
-  //       process.env.PAGE_SIZE || 25
-  //     }`;
-  //     if (searchTerm) {
-  //       url += url = `&q=${searchTerm}`;
-  //     }
-  //     const response = await fetch(url, {
-  //       headers: {
-  //         'X-API-KEY': process.env.NEWS_API_KEY
-  //       }
-  //     });
-  //     const data = await response.json();
-  //     return res.status(200).json({ data });
-  //   } catch (error) {
-  //     console.log('ERROR', error);
-  //     return res.status(500).json({ status: 'error', message: error.message });
-  //   }
+  try {
+    let url = `https://newsapi.org/v2/everything?sortBy=publishedAt&pageSize=${
+      process.env.PAGE_SIZE || 25
+    }`;
+    if (searchTerm) {
+      url += url = `&q=${searchTerm}`;
+    }
+    const response = await fetch(url, {
+      headers: {
+        'X-API-KEY': process.env.NEWS_API_KEY,
+      },
+    });
+    const data = await response.json();
+    return res.status(200).json({ data });
+  } catch (error) {
+    console.log('ERROR', error);
+    return res.status(500).json({ status: 'error', message: error.message });
+  }
 }
 
 export default handler;

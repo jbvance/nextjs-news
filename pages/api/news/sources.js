@@ -1,11 +1,13 @@
 import dummySources from '../../../lib/dummy-sources';
 async function handler(req, res) {
-  // For now, use dummy-sources file to prevent NewsAPI requests from reaching daily limit.
+  // For development, use dummy-sources file to prevent NewsAPI requests from reaching daily limit.
   // Remove for production and call API instead
-  const sources = dummySources;
-  return res.status(200).json({ data: sources });
+  if (process.env.ENVIRONMENT === 'dev') {
+    const sources = dummySources;
+    return res.status(200).json({ data: sources });
+  }
 
-  const url = 'https://newsapi.org/v2/sources?language=en&country=us';
+  const url = `https://newsapi.org/v2/sources?language=en&country=us`;
   try {
     const response = await fetch(url, {
       headers: {

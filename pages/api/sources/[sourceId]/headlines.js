@@ -9,23 +9,27 @@ async function handler(req, res) {
     return;
   }
 
-  // For now, return dummy aritcles to prevent reaching cap on NewsAPI usage
-  return res.status(200).json({
-    data: {
-      status: 'ok',
-      totalResults: 10,
-      articles
-    }
-  });
+  // For now, development, use dummy aritcles to prevent reaching cap on NewsAPI usage
+  if (process.env.ENVIRONMENT === 'dev') {
+    return res.status(200).json({
+      data: {
+        status: 'ok',
+        totalResults: 10,
+        articles,
+      },
+    });
+  }
 
   const { sourceId } = req.query;
   try {
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?sources=${sourceId}`,
+      `https://newsapi.org/v2/top-headlines?sources=${sourceId}&pageSize=${
+        process.env.PAGE_SIZE || 25
+      }`,
       {
         headers: {
-          'X-API-KEY': process.env.NEWS_API_KEY
-        }
+          'X-API-KEY': process.env.NEWS_API_KEY,
+        },
       }
     );
     const data = await response.json();
