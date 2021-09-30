@@ -1,12 +1,10 @@
 import { useContext, useEffect } from 'react';
 import HeadlinesContext from '../../store/headlines-context';
-import FavoritesContext from '../../store/favorites-context';
 import Headline from './headline';
 import classes from './headlines-grid.module.css';
 
 function HeadlinesGrid({ headlines }) {
   const headlinesCtx = useContext(HeadlinesContext);
-  const favoritesCtx = useContext(FavoritesContext);
 
   if (headlinesCtx.isLoading) {
     return <p>Loading...</p>;

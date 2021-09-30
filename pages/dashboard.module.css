@@ -1,3 +1,8 @@
 .dashboard {
   padding: 10px;
 }
+
+.dashboard h2 {
+  color: #1967d2;
+  margin: 20px 0px;
+}

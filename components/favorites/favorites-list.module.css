@@ -18,8 +18,8 @@
   margin: 5px;
   padding: 3px 10px;
   border-radius: 10px;
-  color: white;
-  background-color: blue;
+  color: black;
+  background-color: #b3ccf5;
 }
 
 .favorites_grid_item_selected {
@@ -32,7 +32,7 @@
   padding: 3px 10px;
   border-radius: 10px;
   color: white;
-  background-color: green;
+  background-color: #055ef0;
 }
 
 .favorites_grid div:hover {
