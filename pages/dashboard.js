@@ -63,7 +63,6 @@ const Dashboard = () => {
   }
   return (
     <div className={classes.dashboard}>
-      <h1>Welcome!</h1>
       <SearchBar onSearch={searchHandler} />
       <FavoritesList onChangeFavorite={loadArticlesBySourceId} />
       <h2>
@@ -86,13 +85,13 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         destination: '/auth',
-        permanent: false
-      }
+        permanent: false,
+      },
     };
   }
 
   return {
-    props: { session }
+    props: { session },
   };
 }
 
