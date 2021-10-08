@@ -15,14 +15,38 @@ const Dashboard = () => {
   const favoritesCtx = useContext(FavoritesContext);
   const headlinesCtx = useContext(HeadlinesContext);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // If news sources have not yet been set in sources context,
-    // load them here from api. Otherwise, use sources stored in context
-    if (!sourcesCtx.sources || sourcesCtx.sources.length === 0) {
-      sourcesCtx.loadSources();
-    }
-  }, []);
+    getSession().then((session) => {
+      if (!session) {
+        window.location.href = '/auth';
+      } else {
+        if (!sourcesCtx.sources || sourcesCtx.sources.length === 0) {
+          sourcesCtx.loadSources();
+        }
+        setIsLoading(false);
+      }
+    });
+  });
+
+  // useEffect(() => {
+  //   // If news sources have not yet been set in sources context,
+  //   // load them here from api. Otherwise, use sources stored in context
+  //   if (
+  //     loadedSession &&
+  //     (!sourcesCtx.sources || sourcesCtx.sources.length === 0)
+  //   ) {
+  //     sourcesCtx.loadSources();
+  //   }
+  // }, [loadedSession]);
+
+  console.log('ABOVE IS LOADING RENDER', isLoading);
+
+  if (isLoading) {
+    console.log('IS LOADING');
+    return <div>...Loading</div>;
+  }
 
   if (!sourcesCtx.sources || sourcesCtx.sources.length === 0) {
     return <div>...Loading</div>;
@@ -78,21 +102,21 @@ const Dashboard = () => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const session = await getSession({ req: context.req });
+// export async function getServerSideProps(context) {
+//   const session = await getSession({ req: context.req });
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth',
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: '/auth',
+//         permanent: false
+//       }
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-}
+//   return {
+//     props: { session }
+//   };
+// }
 
 export default Dashboard;

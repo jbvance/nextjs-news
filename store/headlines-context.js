@@ -30,7 +30,7 @@ export function HeadlinesContextProvider(props) {
       //console.log('URL', apiUrl);
       const response = await fetch(apiUrl);
       const results = await response.json();
-      setHeadlines(results.data.articles);
+      if (response.ok) setHeadlines(results.data.articles);
     } catch (error) {
       console.error(error);
     } finally {

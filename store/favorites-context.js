@@ -8,7 +8,7 @@ const FavoritesContext = createContext({
   addFavorite: function (item) {},
   deleteFavorite: function (id) {},
   selectFavorite: function (id) {},
-  selectedFavorite: '',
+  selectedFavorite: ''
 });
 
 export function FavoritesContextProvider(props) {
@@ -27,7 +27,7 @@ export function FavoritesContextProvider(props) {
     try {
       const result = await fetch('/api/user/favorites/insert', {
         method: 'POST',
-        body: JSON.stringify({ ...item }),
+        body: JSON.stringify({ ...item })
       });
       if (result.ok) {
         setFavorites((prevFavs) => [...prevFavs, item]);
@@ -43,7 +43,7 @@ export function FavoritesContextProvider(props) {
   async function deleteFavorite(id) {
     const result = await fetch('/api/user/favorites/delete', {
       method: 'DELETE',
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id })
     });
     const newFavs = favorites.filter((fav) => {
       return fav.id !== id;
@@ -54,8 +54,9 @@ export function FavoritesContextProvider(props) {
   async function loadFavoritesHandler() {
     setIsLoading(true);
     const response = await fetch('/api/user/favorites');
+    console.log(response);
     const results = await response.json();
-    setFavorites(results.data.sort(compare));
+    if (response.ok) setFavorites(results.data.sort(compare));
     setIsLoading(false);
   }
 
@@ -71,7 +72,7 @@ export function FavoritesContextProvider(props) {
     deleteFavorite,
     isLoading,
     selectFavorite,
-    selectedFavorite,
+    selectedFavorite
   };
 
   return (
